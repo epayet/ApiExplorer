@@ -23,13 +23,27 @@ function getApiDescription() {
                             {
                                 "name": "someParameter",
                                 "description": "this is a parameter",
-                                "required": true
+                                "required": true,
+                                type: "query"
                             }, {
                                 "name": "someParameter2",
                                 "description": "this is another parameter",
                                 "required": false
                             }
-                        ]
+                        ],
+                        "result": [{
+                            "name": "title",
+                            "type": "string",
+                            "description": "The title of the api"
+                        }, {
+                            "name": "description",
+                            "type": "string",
+                            "description": "The description of the api"
+                        }, {
+                            "name": "url",
+                            "type": "string",
+                            "description": "The url of the api"
+                        }]
                     }
                 ]
             }, {
@@ -39,6 +53,32 @@ function getApiDescription() {
                         "verb": "get",
                         "path": "/resource",
                         "description": "Get the resources"
+                    }
+                ]
+            }, {
+                "name": "Execution",
+                "methods": [
+                    {
+                        "verb": "get",
+                        "path": "/execution",
+                        "description": "Get all the executions"
+                    }, {
+                        "verb": "post",
+                        "path": "/execution",
+                        "description": "Create an execution",
+                        "parameters": [{
+                            "name": "verb",
+                            "description": "The verb to use (get, post, ...)",
+                            "required": true
+                        }, {
+                            "name": "path",
+                            "description": "The path",
+                            "required": true
+                        }, {
+                            "name": "parameters",
+                            "description": "The parameters",
+                            "required": false
+                        }]
                     }
                 ]
             }
