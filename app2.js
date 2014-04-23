@@ -1,8 +1,6 @@
-var ExplorerServer = require("./lib/explorer/ExplorerServer");
+var apiExplorer = require("./lib/ApiExplorer");
 
-var apiDescription = getApiDescription();
-server = new ExplorerServer({port: 8080, apiDescription: apiDescription});
-server.run();
+apiExplorer.createExplorer({serverPort: 8080, clientPort: 8082, apiDescription: getApiDescription()});
 
 function getApiDescription() {
     return {

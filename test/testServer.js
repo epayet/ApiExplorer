@@ -1,5 +1,5 @@
 var restify = require("restify");
-var ExplorerServer = require("../lib/ExplorerServer");
+var ExplorerServer = require("../lib/explorer/ExplorerServer");
 
 var client, server;
 var apiDescription = getApiDescription();
