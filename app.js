@@ -1,7 +1,7 @@
 var ExplorerServer = require("./lib/explorer/ExplorerServer");
 
 var apiDescription = getApiDescription();
-server = new ExplorerServer({port: 8080, apiDescription: apiDescription});
+server = new ExplorerServer({port: 8093, apiDescription: apiDescription});
 server.run();
 
 function getApiDescription() {
@@ -9,7 +9,7 @@ function getApiDescription() {
         apiInfo: {
             "title": "The Explorer API",
             "description": "the description bla bla bla",
-            "url": "http://localhost:8080"
+            "url": "http://localhost:8093"
         },
         resource: [
             {

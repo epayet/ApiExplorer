@@ -1,6 +1,6 @@
 var apiExplorer = require("./lib/ApiExplorer");
 
-apiExplorer.createExplorer({serverPort: 8080, clientPort: 8082, apiDescription: getApiDescription()});
+apiExplorer.createExplorer({clientPort: 8082, apiDescription: getApiDescription()});
 
 function getApiDescription() {
     return {
