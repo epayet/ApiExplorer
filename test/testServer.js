@@ -43,13 +43,32 @@ module.exports = {
         });
     },
 
-    createExecution_WithTypeQuery: function(assert) {
+    createExecution_WithParametersAndGetMethod: function(assert) {
         client.post("/execution", testExecutions[1], function(err, req, res, savedExecution) {
             checkAndAssertExecution(savedExecution, assert, testResults[0], function(finishedExecution) {
                 assert.equals(finishedExecution.url, "http://localhost:8081/apiInfo?testQuery=1");
                 assert.done();
             });
         });
+    },
+
+    createExecution_WithPutMethodAndMixQueryBodyParameters: function(assert) {
+        client.post("/execution", testExecutions[2], function(err, req, res, savedExecution) {
+            checkExecution(savedExecution, function(finishedExecution) {
+                assert.equals(finishedExecution.url, "http://localhost:8081/test?testQuery=1");
+                assert.same(finishedExecution.body, {testBody: 2});
+                assert.done();
+            });
+        })
+    },
+
+    createExecution_ParameterType_id: function(assert) {
+        client.post("/execution", testExecutions[3], function(err, req, res, savedExecution) {
+            checkExecution(savedExecution, function(finishedExecution) {
+                assert.equals(finishedExecution.url, "http://localhost:8081/test/2?testQuery=1");
+                assert.done();
+            });
+        })
     }
 };
 
@@ -95,11 +114,34 @@ function getApiDescription() {
                                 "name": "testQuery",
                                 "description": "this is a parameter",
                                 "required": true,
-                                type: "query"
+                                "parameterType": "query"
                             }
                         ]
                     }
                 ]
+            }, {
+                "name": "test",
+                "methods": [{
+                    "verb": "put",
+                    "path": "/test",
+                    "parameters": [{
+                        "name": "testQuery",
+                        "parameterType": "query"
+                    }, {
+                        "name": "testBody",
+                        "parameterType": "body"
+                    }]
+                },{
+                    "verb": "get",
+                    "path": "/test/{id}",
+                    "parameters": [{
+                        "name": "testQuery",
+                        "parameterType": "query"
+                    }, {
+                        "name": "testId",
+                        "parameterType": "id"
+                    }]
+                }]
             }
         ]
     };
@@ -109,13 +151,31 @@ function getTestData(data) {
     switch(data) {
         case "execution":
             return [{
+                resource: "ApiInfo",
                 verb: "get",
                 path: "/apiInfo"
             }, {
+                resource: "ApiInfo",
                 verb: "get",
                 path: "/apiInfo",
                 parameters: {
-
+                    "testQuery": 1
+                }
+            }, {
+                resource: "test",
+                verb: "put",
+                path: "/test",
+                parameters: {
+                    "testQuery": 1,
+                    "testBody": 2
+                }
+            }, {
+                resource: "test",
+                verb: "get",
+                path: "/test/{id}",
+                parameters: {
+                    "testQuery": 1,
+                    "testId": 2
                 }
             }];
 

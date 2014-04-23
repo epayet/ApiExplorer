@@ -24,11 +24,12 @@ function getApiDescription() {
                                 "name": "someParameter",
                                 "description": "this is a parameter",
                                 "required": true,
-                                type: "query"
+                                parameterType: "query"
                             }, {
                                 "name": "someParameter2",
                                 "description": "this is another parameter",
-                                "required": false
+                                "required": false,
+                                parameterType: "query"
                             }
                         ],
                         "result": [{
@@ -69,15 +70,18 @@ function getApiDescription() {
                         "parameters": [{
                             "name": "verb",
                             "description": "The verb to use (get, post, ...)",
-                            "required": true
+                            "required": true,
+                            parameterType: "body"
                         }, {
                             "name": "path",
                             "description": "The path",
-                            "required": true
+                            "required": true,
+                            parameterType: "body"
                         }, {
                             "name": "parameters",
                             "description": "The parameters",
-                            "required": false
+                            "required": false,
+                            parameterType: "body"
                         }]
                     }
                 ]
