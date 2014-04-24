@@ -138,7 +138,7 @@ function getApiDescription() {
                         "name": "testQuery",
                         "parameterType": "query"
                     }, {
-                        "name": "testId",
+                        "name": "id",
                         "parameterType": "id"
                     }]
                 }]
@@ -175,7 +175,7 @@ function getTestData(data) {
                 path: "/test/{id}",
                 parameters: {
                     "testQuery": 1,
-                    "testId": 2
+                    "id": 2
                 }
             }];
 
