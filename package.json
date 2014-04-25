@@ -2,7 +2,7 @@
     "author": "Emmanuel Payet",
     "name": "api-explorer",
     "description": "Easily create an interactive documentation for your RESTful API",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/epayet/ApiExplorer.git"
