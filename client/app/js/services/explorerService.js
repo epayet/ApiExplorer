@@ -1,5 +1,5 @@
-angular.module(APP_NAME_SERVICES).factory("ExplorerService", ['$http',
-    function ($http) {
+angular.module(APP_NAME_SERVICES).factory("ExplorerService", ['$http', '$location',
+    function ($http, $location) {
         return {
             hasExampleValue: function(parameters) {
                 if(!parameters) return false;
@@ -61,6 +61,10 @@ angular.module(APP_NAME_SERVICES).factory("ExplorerService", ['$http',
                     }
                     return body;
                 }
+            },
+
+            getApiUrl: function() {
+                return $location.absUrl().split('#')[0] + "api/";
             }
         };
 

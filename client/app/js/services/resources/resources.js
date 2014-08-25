@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module(APP_NAME_SERVICES).factory('Resources', ['ResourceFactory', 'Constants',
-    function(ResourceFactory, Constants) {
+angular.module(APP_NAME_SERVICES).factory('Resources', ['ResourceFactory', 'ExplorerService',
+    function(ResourceFactory, ExplorerService) {
         var resourcesInfo = {
             name : "resources",
             idField: "name",
-            apiUrl : Constants.apiUrl
+            apiUrl : ExplorerService.getApiUrl()
         };
         return ResourceFactory.createResource(resourcesInfo);
     }]);

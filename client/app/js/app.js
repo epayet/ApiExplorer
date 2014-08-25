@@ -17,13 +17,6 @@ angular.module(APP_NAME, [
   APP_NAME_CONTROLLERS
 ]).
 
-constant('Constants', {
-    //locale mode : 
-    //apiUrl: 'api/',
-    //remote mode : 
-    apiUrl: '/api/explorer/'
-}).
-
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/explorer', {templateUrl: 'partials/explorer.html', controller: 'ExplorerController'});
   $routeProvider.otherwise({redirectTo: '/explorer'});

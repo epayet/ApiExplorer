@@ -17,23 +17,19 @@ ApiExplorer.prototype.startServer = function(options) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.use("/api/explorer", this.getApiRouter());
-    app.use("/", this.getClientRouter());
+    app.use("/", this.getRouter());
 
     app.listen(app.get('port'), function() {
         console.log('Express server listening at http://localhost:' + app.get('port'));
     });
 };
 
-ApiExplorer.prototype.getApiRouter = function() {
+ApiExplorer.prototype.getRouter = function() {
     var router = express.Router();
-    router.get("/apiInfo", apiInfoController.get(this.apiDescription.apiInfo));
-    router.get("/resources", resourcesController.get(this.apiDescription.resources));
+    router.get("/api/apiInfo", apiInfoController.get(this.apiDescription.apiInfo));
+    router.get("/api/resources", resourcesController.get(this.apiDescription.resources));
+    router.use("/", express.static(path.join(__dirname, '../client/public')));
     return router;
-};
-
-ApiExplorer.prototype.getClientRouter = function() {
-    return express.static(path.join(__dirname, '../client/public'));
 };
 
 module.exports = ApiExplorer;
