@@ -1,0 +1,141 @@
+<div class="container">
+    <h2>{{apiInfo.title}}</h2>
+    <h3>Url: </h3>
+    <p>{{apiInfo.url}}</p>
+    <h3>Description:</h3>
+    <p>{{apiInfo.description}}</p>
+
+    <h3>Resources:</h3>
+
+    <div ng-repeat="resource in resources" class="panel panel-default">
+        <div class="panel-heading clickable"
+                ng-click="isResourceCollapsed[$index] = !isResourceCollapsed[$index]">
+            {{resource.name}}
+        </div>
+
+        <div class="panel-body" collapse="isResourceCollapsed[$index]">
+            <p>{{resource.description}}</p>
+            <br ng-show="resource.description">
+
+            <div ng-repeat="method in resource.methods"
+                 class="panel panel-{{getLabelForMethod(method.verb)}}">
+                <div class="panel-heading clickable"
+                     ng-click="isMethodCollapsed[$parent.$index][$index] = !isMethodCollapsed[$parent.$index][$index]">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <span class="label label-{{getLabelForMethod(method.verb)}}">{{method.verb | uppercase}}</span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <span>{{method.path}}</span>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <i class="pull-right">{{method.description}}</i>
+                        </div>
+                    </div>
+                </div>
+
+                <div collapse="isMethodCollapsed[$parent.$index][$index]" class="panel-body">
+                    <form ng-submit="callMethod(method)">
+                        <table ng-show="method.parameters" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Parameters</th>
+                                    <th>Value</th>
+                                    <th>Description</th>
+                                    <th>Required</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="parameter in method.parameters">
+                                    <td>{{parameter.name}}</td>
+                                    <td>
+                                        <select
+                                                ng-show="parameter.type == 'enum'"
+                                                ng-options="value for value in parameter.values"
+                                                ng-model="parameter.value"
+                                                class="form-control">
+                                                </select>
+
+                                        <!--Careful, if required and hidden, bug: so only required if showed-->
+                                        <input
+                                               ng-hide="parameter.type"
+                                               ng-model="parameter.value"
+                                               ng-required="!parameter.type && parameter.required"
+                                               class="form-control">
+
+                                        <textarea
+                                                ng-show="parameter.type == 'object'"
+                                                ng-model="parameter.stringValue"
+                                                ng-required="parameter.type == 'object' && parameter.required"
+                                                class="form-control"
+                                                ></textarea>
+                                    </td>
+                                    <td>{{parameter.description}}</td>
+                                    <td>{{parameter.required}}</td>
+                                    <td>{{parameter.defaultValue}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            <i class="glyphicon glyphicon-play"></i> Test
+                        </button>
+
+                        <button ng-show="hasExampleValue(method.parameters)"
+                                ng-click="useExampleValues(method.parameters)"
+                                class="btn btn-sm btn-default"
+                                type="button">
+                            <i class="glyphicon glyphicon-list-alt"></i> Use example
+                        </button>
+                    </form>
+
+                    <br><br>
+                    <div ng-show="result && method == lastMethod">
+                        <h2>Current Result</h2>
+                        <h4>Url</h4>
+                        <div class="well well-sm" >
+                            {{result.url}}
+                        </div>
+                        <div ng-show="result.body">
+                            <h4>Body</h4>
+                            <pre>{{result.body | json}}</pre>
+                        </div>
+                        <h4>Result</h4>
+                        <pre>{{result.result | json}}</pre>
+                    </div>
+
+                    <br>
+                    <div ng-show="method.result">
+                        <h2>Result reference</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Parameters</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="result in method.result">
+                                <td>{{result.name}}</td>
+                                <td>{{result.type}}</td>
+                                <td>
+                                    {{result.description}}
+                                    <ul ng-show="result.fields">
+                                        <li ng-repeat="field in result.fields">
+                                            <i>{{field.name}}</i>: {{field.description}}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
