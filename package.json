@@ -1,25 +1,26 @@
 {
-    "author": "Emmanuel Payet",
-    "name": "api-explorer",
-    "description": "Easily create an interactive documentation for your RESTful API",
-    "version": "0.2.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/epayet/ApiExplorer.git"
-    },
-    "main": "./lib/ApiExplorer",
-    "keywords": [
-        "rest",
-        "explorer",
-        "restful",
-        "api",
-        "api-explorer"
-    ],
-    "dependencies": {
-        "restify": "*",
-        "simple-restful": "*"
-    },
-    "engines": {
-        "node": "*"
-    }
+  "author": "Emmanuel Payet",
+  "name": "api-explorer",
+  "description": "Easily create an interactive documentation for your RESTful API",
+  "version": "0.3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epayet/ApiExplorer.git"
+  },
+  "main": "./app/ApiExplorer",
+  "keywords": [
+    "rest",
+    "explorer",
+    "restful",
+    "api",
+    "api-explorer"
+  ],
+  "dependencies": {
+    "express": "~4.8.5",
+    "cors": "~2.4.1",
+    "body-parser": "~1.6.5"
+  },
+  "engines": {
+    "node": "*"
+  }
 }

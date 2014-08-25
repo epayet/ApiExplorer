@@ -1,17 +1,16 @@
-var ExplorerServer = require("./lib/explorer/ExplorerServer");
+var ApiExplorer = require("./app/ApiExplorer");
 
-var apiDescription = getApiDescription();
-server = new ExplorerServer({port: 8093, apiDescription: apiDescription});
-server.run();
+var apiExplorer = new ApiExplorer(getApiDescription());
+apiExplorer.startServer({port: 8082});
 
 function getApiDescription() {
     return {
         apiInfo: {
             "title": "The Explorer API",
             "description": "the description bla bla bla",
-            "url": "http://localhost:8093"
+            "url": "http://localhost:8082/api/explorer"
         },
-        resource: [
+        resources: [
             {
                 "name": "ApiInfo",
                 "methods": [
@@ -52,37 +51,8 @@ function getApiDescription() {
                 "methods": [
                     {
                         "verb": "get",
-                        "path": "/resource",
+                        "path": "/resources",
                         "description": "Get the resources"
-                    }
-                ]
-            }, {
-                "name": "Execution",
-                "methods": [
-                    {
-                        "verb": "get",
-                        "path": "/execution",
-                        "description": "Get all the executions"
-                    }, {
-                        "verb": "post",
-                        "path": "/execution",
-                        "description": "Create an execution",
-                        "parameters": [{
-                            "name": "verb",
-                            "description": "The verb to use (get, post, ...)",
-                            "required": true,
-                            parameterType: "body"
-                        }, {
-                            "name": "path",
-                            "description": "The path",
-                            "required": true,
-                            parameterType: "body"
-                        }, {
-                            "name": "parameters",
-                            "description": "The parameters",
-                            "required": false,
-                            parameterType: "body"
-                        }]
                     }
                 ]
             }
