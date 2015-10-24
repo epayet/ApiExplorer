@@ -1,0 +1,1132 @@
+{
+    "apiInfo": {
+        "title": "WSMonitor API",
+        "description": "This API has the purpose to easily manage and call SOAP or RESTful apis.",
+        "url": "http://localhost:8080"
+    },
+    "resources": [
+        {
+            "name": "Service",
+            "description": "This resource represents a web service (soap or rest) with its information.",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/service",
+                    "description": "Get all services (array)",
+                    "result": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "description": "The name of the service"
+                        },
+                        {
+                            "name": "type",
+                            "type": "string",
+                            "description": "The type of the service (soap or rest)"
+                        },
+                        {
+                            "name": "endpoint",
+                            "type": "string",
+                            "description": "The endpoint of the service"
+                        }
+                    ]
+                },
+                {
+                    "verb": "get",
+                    "path": "/service/{name}",
+                    "description": "Get one service (by name)",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "BrandFrontService"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "description": "The name of the service"
+                        },
+                        {
+                            "name": "type",
+                            "type": "string",
+                            "description": "The type of the service (soap or rest)"
+                        },
+                        {
+                            "name": "endpoint",
+                            "type": "string",
+                            "description": "The endpoint of the service"
+                        }
+                    ]
+                },
+                {
+                    "verb": "post",
+                    "path": "/service",
+                    "description": "Add a service",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "testNewService"
+                        },
+                        {
+                            "name": "type",
+                            "description": "The type of the service (soap or rest)",
+                            "type": "enum",
+                            "values": [
+                                "soap",
+                                "rest"
+                            ],
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "soap"
+                        },
+                        {
+                            "name": "endpoint",
+                            "description": "The endpoint of the service (see /endpoint to have endpoints available)",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "front"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "description": "The name of the service"
+                        },
+                        {
+                            "name": "type",
+                            "type": "string",
+                            "description": "The type of the service (soap or rest)"
+                        },
+                        {
+                            "name": "endpoint",
+                            "type": "string",
+                            "description": "The endpoint of the service"
+                        }
+                    ]
+                },
+                {
+                    "verb": "put",
+                    "path": "/service/{name}",
+                    "description": "Update a service by name",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "BrandFrontService"
+                        },
+                        {
+                            "name": "type",
+                            "description": "The type of the service (soap or rest)",
+                            "type": "enum",
+                            "values": [
+                                "soap",
+                                "rest"
+                            ],
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "soap"
+                        },
+                        {
+                            "name": "endpoint",
+                            "description": "The endpoint of the service (see /endpoint to have endpoints available)",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "front"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "description": "The name of the service"
+                        },
+                        {
+                            "name": "type",
+                            "type": "string",
+                            "description": "The type of the service (soap or rest)"
+                        },
+                        {
+                            "name": "endpoint",
+                            "type": "string",
+                            "description": "The endpoint of the service"
+                        }
+                    ]
+                },
+                {
+                    "verb": "delete",
+                    "path": "/service/{name}",
+                    "description": "Delete a service by name",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "BrandFrontService"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Service Description",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/service/{name}/description",
+                    "description": "Get the description of a soap service (methods and types)",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "BrandFrontService"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment to use (see /environment to see environments available)",
+                            "required": true,
+                            "parameterType": "query",
+                            "exampleValue": "dev"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "methods",
+                            "type": "array",
+                            "description": "Contains the methods available for the service",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "description": "The name of the method"
+                                },
+                                {
+                                    "name": "parameters",
+                                    "description": "The array of parameters of the method (name and type)"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "types",
+                            "type": "array",
+                            "description": "Contains the types definition used for the service",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "description": "The name of the type"
+                                },
+                                {
+                                    "name": "type",
+                                    "description": "class, array, int, string, etc."
+                                },
+                                {
+                                    "name": "values",
+                                    "description": "In case of a class, contains the public properties"
+                                },
+                                {
+                                    "name": "singleType",
+                                    "description": "In case of an array, contains the name of the type of a single object"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Service Parameter Skeleton",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/service/{name}/parametersSkeleton",
+                    "description": "Get the json skeleton for a soap method",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "BrandFrontService"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment to use (see /environment to see environments available)",
+                            "required": true,
+                            "parameterType": "query",
+                            "exampleValue": "dev"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method where you want an empty parameter skeleton",
+                            "required": true,
+                            "parameterType": "query",
+                            "exampleValue": "GetBrandList"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Service Soap Parameters",
+            "methods": [
+                {
+                    "verb": "post",
+                    "path": "/service/{name}/parametersSoap",
+                    "description": "Get the soap version of the json based parameters for a method",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the service",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "ProductCatalogFrontService"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method used",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "GetProductDetailList"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment to use (see /environment to see environments available)",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "dev"
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The json based parameters to be converted to SOAP",
+                            "required": false,
+                            "type": "object",
+                            "parameterType": "body",
+                            "exampleValue": {
+                                "headerMessage": {
+                                    "Context": {
+                                        "CatalogID": 1,
+                                        "SiteID": 100
+                                    },
+                                    "Localization": {
+                                        "Country": "Fr",
+                                        "Currency": "Eur",
+                                        "Language": "Fr"
+                                    }
+                                },
+                                "productIdList": [
+                                    "TU03"
+                                ]
+                            }
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "envelope",
+                            "description": "The SOAP envelope which is the SOAP equivalent of the json based parameters for this method",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Execution",
+            "description": "Represents an execution running or finished on the server",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/execution",
+                    "description": "Get all executions",
+                    "result": [
+                        {
+                            "name": "id",
+                            "description": "The identifier of the execution",
+                            "type": "int"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment used",
+                            "type": "string"
+                        },
+                        {
+                            "name": "service",
+                            "description": "The service called",
+                            "type": "string"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method of the service called",
+                            "type": "string"
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The parameters used for the method",
+                            "type": "string"
+                        },
+                        {
+                            "name": "state",
+                            "description": "The state of the execution",
+                            "type": "enum",
+                            "fields": [
+                                {
+                                    "name": "pending",
+                                    "description": "The execution is still running, you have to check later"
+                                },
+                                {
+                                    "name": "finished",
+                                    "description": "The execution is finished and you have now the result and the raw result"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "result",
+                            "description": "The result (json) of the execution when finished",
+                            "type": "string"
+                        },
+                        {
+                            "name": "rawResult",
+                            "description": "The result in raw (soap, xml, etc.) of the service called",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "verb": "get",
+                    "path": "/execution/{id}",
+                    "description": "Get one execution by id",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "description": "The id of the execution",
+                            "required": true,
+                            "parameterType": "id"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "id",
+                            "description": "The identifier of the execution",
+                            "type": "int"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment used",
+                            "type": "string"
+                        },
+                        {
+                            "name": "service",
+                            "description": "The service called",
+                            "type": "string"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method of the service called",
+                            "type": "string"
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The parameters used for the method",
+                            "type": "string"
+                        },
+                        {
+                            "name": "state",
+                            "description": "The state of the execution",
+                            "type": "enum",
+                            "fields": [
+                                {
+                                    "name": "pending",
+                                    "description": "The execution is still running, you have to check later"
+                                },
+                                {
+                                    "name": "finished",
+                                    "description": "The execution is finished and you have now the result and the raw result"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "result",
+                            "description": "The result (json) of the execution when finished",
+                            "type": "string"
+                        },
+                        {
+                            "name": "rawResult",
+                            "description": "The result in raw (soap, xml, etc.) of the service called",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "verb": "post",
+                    "path": "/execution",
+                    "description": "Create an execution",
+                    "parameters": [
+                        {
+                            "name": "environment",
+                            "description": "The environment to use (see /environment to see environments available)",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "dev"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method you want to call",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "GetOpenAPIProduct"
+                        },
+                        {
+                            "name": "service",
+                            "description": "The service you want to call",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "GetOpenAPIProduct"
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The json parameters of the method",
+                            "required": false,
+                            "parameterType": "body",
+                            "type": "object",
+                            "exampleValue": {
+                                "HeaderMessage": {
+                                    "Country": "Fr",
+                                    "Currency": "Eur",
+                                    "Language": "Fr",
+                                    "CustomerId": {},
+                                    "AuthenticationToken": {},
+                                    "TokenId": {},
+                                    "ApplicationInformations": {
+                                        "Id": 100,
+                                        "UserInterfaceName": "OpenAPI",
+                                        "Version": {
+                                            "Major": 1,
+                                            "Minor": 0,
+                                            "Revision": 0
+                                        }
+                                    },
+                                    "Style": {
+                                        "Width": 1218
+                                    },
+                                    "Tracking": {}
+                                },
+                                "ProductRequest": {
+                                    "ProductEANList": [],
+                                    "ProductIdList": [
+                                        "angfirrnoir"
+                                    ],
+                                    "Scope": {
+                                        "AssociatedProducts": false,
+                                        "Images": false,
+                                        "Offers": false,
+                                        "SimilarProducts": false,
+                                        "TechnicalDescription": false
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "id",
+                            "description": "The identifier of the execution",
+                            "type": "int"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment used",
+                            "type": "string"
+                        },
+                        {
+                            "name": "service",
+                            "description": "The service called",
+                            "type": "string"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method of the service called",
+                            "type": "string"
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The parameters used for the method",
+                            "type": "string"
+                        },
+                        {
+                            "name": "state",
+                            "description": "The state of the execution",
+                            "type": "enum",
+                            "fields": [
+                                {
+                                    "name": "pending",
+                                    "description": "The execution is still running, you have to check later"
+                                },
+                                {
+                                    "name": "finished",
+                                    "description": "The execution is finished and you have now the result and the raw result"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "result",
+                            "description": "The result (json) of the execution when finished",
+                            "type": "string"
+                        },
+                        {
+                            "name": "rawResult",
+                            "description": "The result in raw (soap, xml, etc.) of the service called",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Saved Request",
+            "description": "This resource represents a saved request (for a particular service and method) that you can reload after.",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/savedRequest",
+                    "description": "Get all saved requests (can be filtered)",
+                    "parameters": [
+                        {
+                            "name": "service",
+                            "description": "The service you want the saved requests",
+                            "required": false,
+                            "parameterType": "query",
+                            "exampleValue": "ProductCatalogFrontService"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method of the service you want the saved requests",
+                            "required": false,
+                            "parameterType": "query",
+                            "exampleValue": "GetProductDetailList"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "description": "The name of the saved request",
+                            "type": "string"
+                        },
+                        {
+                            "name": "service",
+                            "description": "The service corresponding",
+                            "type": "string"
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method corresponding",
+                            "type": "string"
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The parameters saved",
+                            "type": "object"
+                        }
+                    ]
+                },
+                {
+                    "verb": "post",
+                    "path": "/savedRequest",
+                    "description": "Create a savedRequest",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The new name of the saved request",
+                            "parameterType": "body",
+                            "required": true
+                        },
+                        {
+                            "name": "service",
+                            "description": "The service corresponding",
+                            "parameterType": "body",
+                            "required": true
+                        },
+                        {
+                            "name": "method",
+                            "description": "The method corresponding",
+                            "parameterType": "body",
+                            "required": true
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "The parameters you want to save",
+                            "type": "object",
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Scenario",
+            "description": "This resource represents a scenario with different steps",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/scenario",
+                    "description": "Get all scenarios",
+                    "result": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "type": "string"
+                        },
+                        {
+                            "name": "steps",
+                            "description": "The steps of the scenario",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "description": "The name of the step"
+                                },
+                                {
+                                    "name": "parameters",
+                                    "description": "The parameters of this step. Every parameter can use precedent step result in this way: [[{stepName}.{result}]]. Then you can explore the precedents steps json results"
+                                },
+                                {
+                                    "name": "service",
+                                    "description": "The service of the step"
+                                },
+                                {
+                                    "name": "method",
+                                    "description": "The method of the step"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "get",
+                    "path": "/scenario/{name}",
+                    "description": "Get a scenario by name",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "required": true,
+                            "parameterType": "id"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "type": "string"
+                        },
+                        {
+                            "name": "steps",
+                            "description": "The steps of the scenario",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "description": "The name of the step"
+                                },
+                                {
+                                    "name": "parameters",
+                                    "description": "The parameters of this step. Every parameter can use precedent step result in this way: [[{stepName}.{result}]]. Then you can explore the precedents steps json results"
+                                },
+                                {
+                                    "name": "service",
+                                    "description": "The service of the step"
+                                },
+                                {
+                                    "name": "method",
+                                    "description": "The method of the step"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "post",
+                    "path": "/scenario",
+                    "description": "Create a scenario",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario (body)",
+                            "required": true,
+                            "parameterType": "body"
+                        },
+                        {
+                            "name": "steps",
+                            "description": "The steps of the scenario, see the result reference to see fields details",
+                            "required": false,
+                            "parameterType": "body"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "type": "string"
+                        },
+                        {
+                            "name": "steps",
+                            "description": "The steps of the scenario",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "description": "The name of the step"
+                                },
+                                {
+                                    "name": "parameters",
+                                    "description": "The parameters of this step. Every parameter can use precedent step result in this way: [[{stepName}.{result}]]. Then you can explore the precedents steps json results"
+                                },
+                                {
+                                    "name": "service",
+                                    "description": "The service of the step"
+                                },
+                                {
+                                    "name": "method",
+                                    "description": "The method of the step"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "put",
+                    "path": "/scenario/{name}",
+                    "description": "Update a scenario",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "required": true,
+                            "parameterType": "id"
+                        },
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario (body)",
+                            "required": true,
+                            "parameterType": "body"
+                        },
+                        {
+                            "name": "steps",
+                            "description": "The steps of the scenario, see the result reference to see fields details",
+                            "required": false,
+                            "parameterType": "body"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "type": "string"
+                        },
+                        {
+                            "name": "steps",
+                            "description": "The steps of the scenario",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "name",
+                                    "description": "The name of the step"
+                                },
+                                {
+                                    "name": "parameters",
+                                    "description": "The parameters of this step. Every parameter can use precedent step result in this way: [[{stepName}.{result}]]. Then you can explore the precedents steps json results"
+                                },
+                                {
+                                    "name": "service",
+                                    "description": "The service of the step"
+                                },
+                                {
+                                    "name": "method",
+                                    "description": "The method of the step"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "delete",
+                    "path": "/scenario/{name}",
+                    "description": "Delete a scenario",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the scenario",
+                            "required": true,
+                            "parameterType": "id"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Environment",
+            "description": "This resource represents an environment. An environment contains the urls of the endpoints.",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/environment",
+                    "description": "Get all environments",
+                    "result": [
+                        {
+                            "name": "environment",
+                            "description": "The name of the environment",
+                            "type": "string"
+                        },
+                        {
+                            "name": "endpoints",
+                            "description": "The urls for each endpoint",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "endpoint",
+                                    "description": "The name of the endpoint"
+                                },
+                                {
+                                    "name": "url",
+                                    "description": "The url for this endpoint on this environment"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "get",
+                    "path": "/environment/{name}",
+                    "description": "Get one environment by name",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the environment",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "dev"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "environment",
+                            "description": "The name of the environment",
+                            "type": "string"
+                        },
+                        {
+                            "name": "endpoints",
+                            "description": "The urls for each endpoint",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "endpoint",
+                                    "description": "The name of the endpoint"
+                                },
+                                {
+                                    "name": "url",
+                                    "description": "The url for this endpoint on this environment"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "post",
+                    "path": "/environment",
+                    "description": "Create an environment",
+                    "parameters": [
+                        {
+                            "name": "environment",
+                            "description": "The name of the environment",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "testNewEnvironment"
+                        },
+                        {
+                            "name": "endpoints",
+                            "type": "object",
+                            "description": "See the result reference",
+                            "required": false,
+                            "parameterType": "body",
+                            "exampleValue": [
+                                {
+                                    "endpoint": "front",
+                                    "url": "http://ldc-dev02:5030"
+                                }
+                            ]
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "environment",
+                            "description": "The name of the environment",
+                            "type": "string"
+                        },
+                        {
+                            "name": "endpoints",
+                            "description": "The urls for each endpoint",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "endpoint",
+                                    "description": "The name of the endpoint"
+                                },
+                                {
+                                    "name": "url",
+                                    "description": "The url for this endpoint on this environment"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "put",
+                    "path": "/environment/{name}",
+                    "description": "Update an environment",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the environment",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "dev"
+                        },
+                        {
+                            "name": "environment",
+                            "description": "The environment to use (see /environment to see environments available)",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "dev"
+                        },
+                        {
+                            "name": "endpoints",
+                            "description": "See the result reference",
+                            "type": "object",
+                            "required": false,
+                            "parameterType": "body"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "environment",
+                            "description": "The name of the environment",
+                            "type": "string"
+                        },
+                        {
+                            "name": "endpoints",
+                            "description": "The urls for each endpoint",
+                            "type": "array",
+                            "fields": [
+                                {
+                                    "name": "endpoint",
+                                    "description": "The name of the endpoint"
+                                },
+                                {
+                                    "name": "url",
+                                    "description": "The url for this endpoint on this environment"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "verb": "delete",
+                    "path": "/environment/{name}",
+                    "description": "Delete an environment",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the environment",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "dev"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Endpoint",
+            "description": "This resource represents an endpoint.",
+            "methods": [
+                {
+                    "verb": "get",
+                    "path": "/endpoint",
+                    "description": "Get all endpoints",
+                    "result": [
+                        {
+                            "name": "endpoint",
+                            "description": "The name of the endpoint",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "verb": "get",
+                    "path": "/endpoint/{name}",
+                    "description": "Get one endpoint by name",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the endpoint",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "front"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "endpoint",
+                            "description": "The name of the endpoint",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "verb": "post",
+                    "path": "/endpoint",
+                    "description": "Create an endpoint",
+                    "parameters": [
+                        {
+                            "name": "endpoint",
+                            "description": "The name of the endpoint",
+                            "required": true,
+                            "parameterType": "body",
+                            "exampleValue": "testNewEndpoint"
+                        }
+                    ],
+                    "result": [
+                        {
+                            "name": "endpoint",
+                            "description": "The name of the endpoint",
+                            "type": "string"
+                        }
+                    ]
+                },
+                {
+                    "verb": "delete",
+                    "path": "/endpoint/{name}",
+                    "description": "Delete an endpoint",
+                    "parameters": [
+                        {
+                            "name": "name",
+                            "description": "The name of the endpoint",
+                            "required": true,
+                            "parameterType": "id",
+                            "exampleValue": "front"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

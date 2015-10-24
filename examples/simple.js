@@ -1,5 +1,7 @@
-var apiExplorer = require("api-explorer");
-apiExplorer.createExplorer({clientPort: 8082, apiDescription: getApiDescription()});
+var ApiExplorer = require("api-explorer");
+
+var apiExplorer = new ApiExplorer(getApiDescription());
+apiExplorer.startServer({port: 8082});
 
 function getApiDescription() {
     return {
@@ -8,7 +10,7 @@ function getApiDescription() {
             "description": "the description bla bla bla",
             "url": "http://localhost:8080"
         },
-        resource: [{
+        resources: [{
             "name": "Example",
             "description": "This resource represents an example resource",
             "methods": [{
