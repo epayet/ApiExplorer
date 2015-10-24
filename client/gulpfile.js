@@ -67,7 +67,7 @@ gulp.task('buildLess', ['copyLess'], function(){
 gulp.task("appScripts", function() {
     return gulp.src(paths.appScripts)
         .pipe(concat("app.min.js"))
-//        .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/js"))
 });
 
@@ -83,7 +83,7 @@ gulp.task("appCss", function() {
 gulp.task("vendorScripts", ['bower-files'], function() {
     return gulp.src(paths.vendorScripts)
         .pipe(concat("vendor.min.js"))
-//        .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/js"))
 });
 
