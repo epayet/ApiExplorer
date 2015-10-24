@@ -1,6 +1,6 @@
 # API Explorer
 
-This module generates a web documentation for your RESTful API. You write your documentation in JSON, and it generates a fully live testable and dynamic web page. A really simple example can be found [here](TODO).
+This module generates a web documentation for your RESTful API. You write your documentation in JSON, and it generates a fully live testable and dynamic web page. A really simple example can be found [here](https://blooming-oasis-8128.herokuapp.com/).
 
 ## Get Started
 
