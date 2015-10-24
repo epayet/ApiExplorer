@@ -28,6 +28,7 @@ ApiExplorer.prototype.getRouter = function() {
     var router = express.Router();
     router.get("/api/apiInfo", apiInfoController.get(this.apiDescription.apiInfo));
     router.get("/api/resources", resourcesController.get(this.apiDescription.resources));
+    router.get("/api/resources/:name", resourcesController.getResource(this.apiDescription.resources));
     router.use("/", express.static(path.join(__dirname, '../client/public')));
     return router;
 };

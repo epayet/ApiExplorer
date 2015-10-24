@@ -67,7 +67,7 @@ gulp.task('buildLess', ['copyLess'], function(){
 gulp.task("appScripts", function() {
     return gulp.src(paths.appScripts)
         .pipe(concat("app.min.js"))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest("public/js"))
 });
 
